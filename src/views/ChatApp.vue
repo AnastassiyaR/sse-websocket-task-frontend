@@ -47,6 +47,7 @@
           Join Chat
         </button>
       </form>
+
     </main>
   </div>
 </template>
