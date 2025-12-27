@@ -48,8 +48,8 @@
           <article v-for="(event, index) in events" :key="index" class="news-item">
             <time class="news-time">{{ event.time }}</time>
             <div class="news-content">
-              <span class="news-badge" :class="getEventType(event.data)">
-                {{ getEventType(event.data).toUpperCase() }}
+              <span class="news-badge" :class="getEventType()">
+                {{ getEventType().toUpperCase() }}
               </span>
               <p class="news-text">{{ event.data }}</p>
             </div>
@@ -72,11 +72,7 @@ const started = ref(false)
 const newsFeed = ref(null)
 let eventSource = null
 
-function getEventType(data) {
-  if (data.includes('[Auto]')) return 'info'
-  if (data.includes('Alert')) return 'error'
-  if (data.includes('Update')) return 'success'
-  if (data.includes('System')) return 'warning'
+function getEventType() {
   return 'info'
 }
 
@@ -90,9 +86,9 @@ function start() {
     addEvent('✅ Connected to live news feed')
   }
 
-  eventSource.onmessage = (event) => {
+  eventSource.addEventListener('time-update', (event) => {
     addEvent(event.data)
-  }
+  })
 
   eventSource.onerror = (err) => {
     console.error('SSE error:', err)
@@ -176,11 +172,7 @@ onUnmounted(() => {
 @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 .news-time { font-size: 13px; color: #666; font-weight: 400; min-width: 80px; }
 .news-content { flex: 1; }
-.news-badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.7rem; font-weight: 600; margin-bottom: 0.5rem; }
-.news-badge.info { background: #e3f2fd; color: #1976d2; }
-.news-badge.success { background: #e8f5e8; color: #2e7d32; }
-.news-badge.warning { background: #fff3e0; color: #f57c00; }
-.news-badge.error { background: #ffebee; color: #d32f2f; }
+.news-badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.7rem; font-weight: 600; margin-bottom: 0.5rem; background: #e3f2fd; color: #1976d2; }
 .news-text { color: #333; line-height: 1.4; margin: 0; }
 .update-indicator { margin-top: 20px; padding: 15px 20px; background: #e8f5e8; border-radius: 8px; color: #2e7d32; font-size: 15px; text-align: center; animation: pulse 2s infinite; }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }

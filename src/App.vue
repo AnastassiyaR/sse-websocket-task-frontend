@@ -2,16 +2,13 @@
   <div id="app">
     <header class="app-header">
       <nav class="nav-container">
-        <div class="nav-brand">
-          <h1>Real-Time Demo</h1>
-        </div>
+        <h1>Real-Time Demo</h1>
         <div class="nav-links">
           <router-link to="/websocket" class="nav-link">WebSocket Chat</router-link>
           <router-link to="/sse" class="nav-link">SSE News Feed</router-link>
         </div>
       </nav>
     </header>
-
     <main class="main-content">
       <router-view></router-view>
     </main>
@@ -48,7 +45,7 @@ body {
   align-items: center;
 }
 
-.nav-brand h1 {
+h1 {
   color: #5f4949;
 }
 
